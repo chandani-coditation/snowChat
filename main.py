@@ -213,7 +213,9 @@ create or replace TABLE CUSTOMER_DETAILS (
 	ADDRESS VARCHAR(255),
 	primary key (CUSTOMER_ID)
 );
-
+"""
+conn.sql(query).collect()
+query = """
 INSERT INTO CUSTOMER_DETAILS (CUSTOMER_ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE, ADDRESS) VALUES
     (1, 'John', 'Doe', 'john.doe@example.com', '123-456-7890', '123 Elm St, Springfield, USA'),
     (2, 'Jane', 'Smith', 'jane.smith@example.com', '987-654-3210', '456 Oak St, Portland, USA'),
@@ -227,9 +229,8 @@ INSERT INTO CUSTOMER_DETAILS (CUSTOMER_ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE, 
     (10, 'Patricia', 'Anderson', 'patricia.anderson@example.com', '888-765-4321', '963 Dogwood St, Dallas, USA');
 
 """
-
-conn.sql(query)
-conn.commit()
+conn.sql(query).collect()
+# conn.commit()
 
 df = execute_sql(sql_query, conn)
 print("df :", df)
