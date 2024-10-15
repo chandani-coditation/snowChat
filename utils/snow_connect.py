@@ -30,21 +30,15 @@ class SnowflakeConnection:
     @staticmethod
     def _get_connection_parameters_from_env() -> Dict[str, Any]:
         connection_parameters = {
-            "host": st.secrets["HOST"],
             "account": st.secrets["ACCOUNT"],
-            "database": st.secrets["DATABASE"],
+            "user": st.secrets["USER_NAME"],
+            "password": st.secrets["PASSWORD"],
             "warehouse": st.secrets["WAREHOUSE"],
+            "database": st.secrets["DATABASE"],
             "schema": st.secrets["SCHEMA"],
             "role": st.secrets["ROLE"],
-            "authenticator": "oauth",
-            "token": SnowflakeConnection._read_oauth_token()
         }
         return connection_parameters
-
-    @staticmethod
-    def _read_oauth_token() -> str:
-        with open('/snowflake/session/token', 'r') as file:
-            return file.read().strip()
 
     def get_session(self):
         """
