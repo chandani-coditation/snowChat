@@ -232,8 +232,10 @@ INSERT INTO CUSTOMER_DETAILS (CUSTOMER_ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE, 
 conn.sql(query).collect()
 # conn.commit()
 
+conn.sql("USE SCHEMA core;")
+
 df = execute_sql(sql_query, conn)
 print("df :", df)
 if df is not None:
     callback_handler.display_dataframe(df)
-    append_message(df, "data", True)
+    # append_message(df, "data", True)

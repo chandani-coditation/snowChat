@@ -1,5 +1,6 @@
 from langchain.prompts.prompt import PromptTemplate
 from langchain_core.prompts import ChatPromptTemplate
+import os
 
 template = """You are an AI chatbot having a conversation with a human.
 
@@ -77,3 +78,17 @@ CONDENSE_QUESTION_PROMPT = ChatPromptTemplate.from_template(template)
 
 
 QA_PROMPT = ChatPromptTemplate.from_template(TEMPLATE)
+
+# New authentication mechanism
+host = os.getenv('SNOWFLAKE_HOST')
+account = os.getenv('SNOWFLAKE_ACCOUNT')
+database = os.getenv('SNOWFLAKE_DATABASE')
+warehouse = os.getenv('SNOWFLAKE_WAREHOUSE')
+role = os.getenv('SNOWFLAKE_ROLE')
+
+# Read OAuth token from file
+with open('/snowflake/session/token', 'r') as file:
+    token = file.read().strip()
+
+# Authentication details
+authentication = 'oauth'
